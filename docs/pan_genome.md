@@ -1,5 +1,9 @@
 # Pan-Genome Analysis
 
+## Lecture
+
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSEweh7Xei6konNxPVSTQzjfuWt38LHiD5O1K4xv-7P8KbkKmvDP8vjhPO-6JEHFU857-wyiCPYAAmN/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="749" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+
 In this tutorial we will learn how to determine a pan-genome from a collection of isolate genomes.
 
 This tutorial is inspired from [Genome annotation and Pangenome Analysis](https://github.com/microgenomics/tutorials/blob/master/pangenome.md) from the CBIB in Santiago, Chile.
