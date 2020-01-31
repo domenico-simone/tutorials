@@ -30,8 +30,8 @@ and then put all the reads in the same directory
 
 ```bash
 mkdir reads
-mv ERR*/*/*.fastq.gz reads/
-rm -r ERS*
+mv ERR*.fastq.gz reads/
+rm -r ERR*
 ```
 
 ## Assemble and Annotate the strains
