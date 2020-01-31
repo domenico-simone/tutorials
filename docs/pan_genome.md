@@ -6,28 +6,10 @@ This tutorial is inspired from [Genome annotation and Pangenome Analysis](https:
 
 ## Getting the data
 
-We'll data from [this article](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006258) and analyse the core and accessory genomes of _E. coli strains_
+We'll get data from [this article](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006258) and analyse the core and accessory genomes of _E. coli_.
 
-Firstly, download the supplementary csv file containing information on all the strains using in the study.
-
-- [Link](https://doi.org/10.1371/journal.pcbi.1006258.s010)
-
-Then, open it in Excel (or any software that opens .csv files) and select 32 strains.
-Download these 32 strains from the ENA website!
-
-!!! note
-    Alternatively you can use [ena browser tools](https://github.com/enasequence/enaBrowserTools) to download the files.
-    It is available as a bioconda recipe.
-
-```bash
-# for getting 10 random strains at the command-line
-cut -d',' -f 1 journal.pcbi.1006258.s010.csv | tail -n +2 | shuf | head -10 > strains.txt
-cat strains.txt | parallel enaGroupGet -f fastq {}
-```
-
-if you wish to use the same strains as your instructor:
-
-
+You can download raw data (paired-end reads) used to assemble a selection of the above-mentioned strains:
+ 
 ```bash
 curl -O -J -L https://osf.io/s43mv/download
 cat strains.txt | parallel enaGroupGet -f fastq {}
@@ -95,7 +77,7 @@ cd roary
 FastTree -nt -gtr core_gene_alignment.aln > my_tree.newick
 ```
 
-Then we can plot the Roary results with `roary_plots.py`, a community contriubuted python script to visualise roary results:
+Then we can plot the Roary results with `roary_plots.py`, a community contributed python script to visualise roary results:
 
 ```
 wget https://raw.githubusercontent.com/sanger-pathogens/Roary/master/contrib/roary_plots/roary_plots.py
