@@ -2,7 +2,13 @@
 
 In this tutorial we will learn how to determine a pan-genome from a collection of isolate genomes.
 
-This tutorial is inspired from [Genome annotation and Pangenome Analysis](https://github.com/microgenomics/tutorials/blob/master/pangenome.md) from the CBIB in Santiago, Chile
+This tutorial is inspired from [Genome annotation and Pangenome Analysis](https://github.com/microgenomics/tutorials/blob/master/pangenome.md) from the CBIB in Santiago, Chile.
+
+### Don't forget to activate the conda environment!
+
+```bash
+conda activate tutorials
+```
 
 ## Getting the data
 
@@ -11,8 +17,9 @@ We'll get data from [this article](https://journals.plos.org/ploscompbiol/articl
 You can download raw data (paired-end reads) used to assemble a selection of the above-mentioned strains:
  
 ```bash
-curl -O -J -L https://osf.io/s43mv/download
-cat strains.txt | parallel enaGroupGet -f fastq {}
+curl -OL https://www.dropbox.com/s/ef4tuc2qby9tcmn/all_datasets.tar.gz
+# uncompress folder
+tar -xvzf all_datasets.tar.gz
 ```
 
 and then put all the reads in the same directory
@@ -56,7 +63,7 @@ done
 
 ## Pan-genome analysis
 
-put all the .gff files in the same folder (e.g., `./gff`) and run Roary
+Run Roary:
 
 ```bash
 roary -f roary -e -n -v annotation/*.gff
