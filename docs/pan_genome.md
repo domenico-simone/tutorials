@@ -63,7 +63,13 @@ done
 
 ## Pan-genome analysis
 
-Run Roary:
+We will use Roary to run pan-genome analysis. If running `roary` gives an error, please install Roary within your conda environment with
+
+```bash
+conda install -c bioconda roary
+
+
+Run Roary
 
 ```bash
 roary -f roary -e -n -v annotation/*.gff

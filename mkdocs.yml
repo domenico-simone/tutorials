@@ -1,11 +1,11 @@
-site_name: Bioinformatics Tutorials
+site_name: Bioinformatics Tutorials@SLU BI1324 (30224), 2020
 theme:
     name: 'material'
     palette:
-        primary: 'pink'
-        accent: 'pink'
-repo_name: 'HadrienG/tutorials'
-repo_url: 'https://github.com/HadrienG/tutorials'
+        primary: 'blue'
+        accent: 'blue'
+repo_name: 'domenico-simone/tutorials'
+repo_url: 'https://github.com/domenico-simone/tutorials'
 
 extra:
     social:
