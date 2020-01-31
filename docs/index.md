@@ -2,7 +2,7 @@
 
 Welcome!
 
-This website is a collection of Bioinformatics tutorials that I've accumulated over the years, while teaching a bioinformatics course at the [Swedish University of Agricultural Sciences](https://www.slu.se) and during various bioinformatics workshops around the globe.
+This website is a collection of Bioinformatics tutorials originally developed by [Hadrien Gourlé](https://www.hadriengourle.com/) for a bioinformatics course at the [Swedish University of Agricultural Sciences](https://www.slu.se) and during various bioinformatics workshops around the globe. In this website they are specifically adapted for the Bioinformatics course BI1324 (30224), held in 2020.
 
 Feel free to follow them online, or to use and modify them for your own teaching.
 
