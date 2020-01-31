@@ -611,7 +611,6 @@ tar -xvzf all_datasets.tar.gz
 <p>and then put all the reads in the same directory</p>
 <div class="codehilite"><pre><span></span>mkdir reads
 mv ERR*.fastq.gz reads/
-rm -r ERR*
 </pre></div>
 
 
@@ -622,7 +621,7 @@ rm -r ERR*
 <span class="k">do</span>
     <span class="nv">prefix</span><span class="o">=</span><span class="k">$(</span>basename <span class="nv">$r1</span> _1.fastq.gz<span class="k">)</span>
     <span class="nv">r2</span><span class="o">=</span>reads/<span class="si">${</span><span class="nv">prefix</span><span class="si">}</span>_2.fastq.gz
-    megahit -1 <span class="nv">$r1</span> -2 <span class="nv">$r2</span> -o <span class="si">${</span><span class="nv">prefix</span><span class="si">}</span> --out-prefix <span class="si">${</span><span class="nv">prefix</span><span class="si">}</span>
+    megahit -1 <span class="nv">$r1</span> -2 <span class="nv">$r2</span> -o <span class="si">${</span><span class="nv">prefix</span><span class="si">}</span> --out-prefix <span class="si">${</span><span class="nv">prefix</span><span class="si">}</span> -m <span class="m">0</span>.6
     mv <span class="si">${</span><span class="nv">prefix</span><span class="si">}</span>/<span class="si">${</span><span class="nv">prefix</span><span class="si">}</span>.contigs.fa assemblies/
     rm -r <span class="si">${</span><span class="nv">prefix</span><span class="si">}</span>
 <span class="k">done</span>
