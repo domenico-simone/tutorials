@@ -354,6 +354,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#dont-forget-to-activate-the-conda-environment" title="Don't forget to activate the conda environment!" class="md-nav__link">
+    Don't forget to activate the conda environment!
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#getting-the-data" title="Getting the data" class="md-nav__link">
     Getting the data
   </a>
@@ -502,6 +509,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#dont-forget-to-activate-the-conda-environment" title="Don't forget to activate the conda environment!" class="md-nav__link">
+    Don't forget to activate the conda environment!
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#getting-the-data" title="Getting the data" class="md-nav__link">
     Getting the data
   </a>
@@ -550,12 +564,18 @@
                 
                 <h1 id="pan-genome-analysis">Pan-Genome Analysis<a class="headerlink" href="#pan-genome-analysis" title="Permanent link">&para;</a></h1>
 <p>In this tutorial we will learn how to determine a pan-genome from a collection of isolate genomes.</p>
-<p>This tutorial is inspired from <a href="https://github.com/microgenomics/tutorials/blob/master/pangenome.md">Genome annotation and Pangenome Analysis</a> from the CBIB in Santiago, Chile</p>
+<p>This tutorial is inspired from <a href="https://github.com/microgenomics/tutorials/blob/master/pangenome.md">Genome annotation and Pangenome Analysis</a> from the CBIB in Santiago, Chile.</p>
+<h3 id="dont-forget-to-activate-the-conda-environment">Don't forget to activate the conda environment!<a class="headerlink" href="#dont-forget-to-activate-the-conda-environment" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>conda activate tutorials
+</pre></div>
+
+
 <h2 id="getting-the-data">Getting the data<a class="headerlink" href="#getting-the-data" title="Permanent link">&para;</a></h2>
 <p>We'll get data from <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006258">this article</a> and analyse the core and accessory genomes of <em>E. coli</em>.</p>
 <p>You can download raw data (paired-end reads) used to assemble a selection of the above-mentioned strains:</p>
-<div class="codehilite"><pre><span></span>curl -O -J -L https://osf.io/s43mv/download
-cat strains.txt <span class="p">|</span> parallel enaGroupGet -f fastq <span class="o">{}</span>
+<div class="codehilite"><pre><span></span>curl -OL https://www.dropbox.com/s/ef4tuc2qby9tcmn/all_datasets.tar.gz
+<span class="c1"># uncompress folder</span>
+tar -xvzf all_datasets.tar.gz
 </pre></div>
 
 
@@ -594,7 +614,7 @@ rm -r ERS*
 
 
 <h2 id="pan-genome-analysis_1">Pan-genome analysis<a class="headerlink" href="#pan-genome-analysis_1" title="Permanent link">&para;</a></h2>
-<p>put all the .gff files in the same folder (e.g., <code>./gff</code>) and run Roary</p>
+<p>Run Roary:</p>
 <div class="codehilite"><pre><span></span>roary -f roary -e -n -v annotation/*.gff
 </pre></div>
 
