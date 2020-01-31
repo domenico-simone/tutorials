@@ -43,7 +43,7 @@ for r1 in reads/*_1.fastq.gz
 do
     prefix=$(basename $r1 _1.fastq.gz)
     r2=reads/${prefix}_2.fastq.gz
-    megahit -1 $r1 -2 $r2 -o ${prefix} --out-prefix ${prefix} -m 0.6
+    megahit -1 $r1 -2 $r2 -o ${prefix} --out-prefix ${prefix} -m 2000000
     mv ${prefix}/${prefix}.contigs.fa assemblies/
     rm -r ${prefix}
 done
