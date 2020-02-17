@@ -32,6 +32,9 @@ How many reads are in the files?
 We will be using the MEGAHIT assembler to assemble our bacterium
 
 ```bash
+module load bioinfo-tools
+module load megahit
+
 megahit -1 ERR486840_1.fastq.gz -2 ERR486840_2.fastq.gz -o m_genitalium
 ```
 
@@ -58,6 +61,8 @@ QUAST is a software evaluating the quality of genome assemblies by computing var
 Run Quast on your assembly
 
 ```bash
+module load quast
+
 quast.py m_genitalium.fasta -o m_genitalium_report
 ```
 
@@ -131,6 +136,9 @@ Pilon then outputs a FASTA file containing an improved representation of the gen
 Before running Pilon itself, we have to align our reads against the assembly
 
 ```
+module load bowtie2
+module load samtools
+
 bowtie2-build m_genitalium.fasta m_genitalium
 bowtie2 -x m_genitalium -1 ERR486840_1.fastq.gz -2 ERR486840_2.fastq.gz | \
     samtools view -bS -o m_genitalium.bam
@@ -141,7 +149,9 @@ samtools index m_genitalium.sorted.bam
 then we run Pilon
 
 ```
-pilon --genome m_genitalium.fasta --frags m_genitalium.sorted.bam --output m_genitalium_improved
+module load Pilon
+
+java -jar $PILON_HOME/pilon.jar --genome m_genitalium.fasta --frags m_genitalium.sorted.bam --output m_genitalium_improved
 ```
 
 which will correct eventual mismatches in our assembly and write the new improved assembly to `m_genitalium_improved.fasta`
@@ -150,19 +160,24 @@ which will correct eventual mismatches in our assembly and write the new improve
 
 Although quast output a range of metric to assess how contiguous our assembly is, having a long N50 does not guarantee a good assembly: it could be riddled by misassemblies!
 
-We will run `busco` to try to find marker genes in our assembly. Marker genes are conserved across a range of species and finding intact conserved genes in our assembly would be a good indication of its quality
+We will run `busco` to try to find marker genes in our assembly. Marker genes are conserved across a range of species and finding intact conserved genes in our assembly would be a good indication of its quality.
 
 First we need to download and unpack the bacterial datasets used by `busco`
 
 ```bash
-wget http://busco.ezlab.org/datasets/bacteria_odb9.tar.gz
-tar xzf bacteria_odb9.tar.gz
+wget https://busco-archive.ezlab.org/v2/datasets/bacteria_odb9.tar.gz
+tar -xzf bacteria_odb9.tar.gz
 ```
 
 then we can run `busco` with
 
 ```bash
-BUSCO.py -i m_genitalium.fasta -l bacteria_odb9 -o busco_genitalium -m genome
+# load BUSCO module
+module load BUSCO
+# then you need to create a local copy
+# of the config directory from the augustus (the gene finder used by BUSCO) module
+source $BUSCO_SETUP
+run_BUSCO.py -i m_genitalium.fasta -l bacteria_odb9 -o busco_genitalium -m genome
 ```
 
 !!! question
@@ -170,6 +185,6 @@ How many marker genes has `busco` found?
 
 ## Course literature
 
-Course litteraturer for today is:
+Course literature for today is:
 
 - Next-Generation Sequence Assembly: Four Stages of Data Processing and Computational Challenges: <https://doi.org/10.1371/journal.pcbi.1003345>
