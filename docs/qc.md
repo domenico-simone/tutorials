@@ -114,7 +114,13 @@ To check the quality of the sequence data we will use a tool called FastQC.
 FastQC has a graphical interface and can be downloaded and run on a Windows or Linux computer without installation.
 It is available [here](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
 
-However, FastQC is also available as a command line utility on the training server you are using.
+However, FastQC is also available as a command line utility on the training server you are using, UPPMAX. To use FastQC on UPPMAX we need to load it as a [module](https://www.uppmax.uu.se/resources/software/module-system/):
+
+```bash
+module load bioinfo-tools
+module load FastQC
+```
+ 
 To run FastQC on our two files
 
 ```bash
