@@ -107,7 +107,7 @@ Where does the filename come from?
 !!! question
 Why are there 1 and 2 in the file names?
 
-## FastQC
+## Quality check: FastQC
 
 To check the quality of the sequence data we will use a tool called FastQC.
 
@@ -154,59 +154,47 @@ Also, have a look at examples of a [good](http://www.bioinformatics.babraham.ac.
 
 You will note that the reads in your uploaded dataset have fairly poor quality (<20) towards the end. There are also outlier reads that have very poor quality for most of the second half of the reads.
 
-## Scythe
-
-Now we'll do some trimming!
-
-Scythe uses a Naive Bayesian approach to classify contaminant substrings in sequence reads.
-It considers quality information, which can make it robust in picking out 3'-end adapters, which often include poor quality bases.
-
-The first thing we need is the adapters to trim off
-
-```bash
-curl -O -J -L https://osf.io/v24pt/download
-```
-
-Now we run scythe on both our read files
-
-```bash
-scythe -a adapters.fasta -o SRR957824_adapt_R1.fastq SRR957824_500K_R1.fastq.gz
-scythe -a adapters.fasta -o SRR957824_adapt_R2.fastq SRR957824_500K_R2.fastq.gz
-```
-
-!!! question
-What adapters do you use?
-
-## Sickle
+## Quality filtering: Trimmomatic
 
 Most modern sequencing technologies produce reads that have deteriorating quality towards the 3'-end and some towards the 5'-end as well.
 Incorrectly called bases in both regions negatively impact assembles, mapping, and downstream bioinformatics analyses.
 
+Another factor which negatively impacts sequencing reads is the possible presence of sequencing adapters in the datasets, as described [here](https://www.ecseq.com/support/ngs/trimming-adapter-sequences-is-it-necessary).
+
 We will trim each read individually down to the good quality part to keep the bad part from interfering with downstream applications.
 
-To do so, we will use sickle. Sickle is a tool that uses sliding windows along with quality and length thresholds to determine when quality is sufficiently low to trim the 3'-end of reads and also determines when the quality is sufficiently high enough to trim the 5'-end of reads. It will also discard reads based upon a length threshold.
+To do so, we will use Trimmomatic. Trimmomatic is a tool that uses sliding windows along with quality and length thresholds to determine when quality is sufficiently low to trim the 3'-end of reads and also determines when the quality is sufficiently high enough to trim the 5'-end of reads. It will also discard reads based upon a length threshold.
 
-To run sickle
+To run Trimmomatic (please adjust the <threads> option to the number of cores you are using on UPPMAX):
 
-```bash
-sickle pe -f SRR957824_adapt_R1.fastq -r SRR957824_adapt_R2.fastq \
-    -t sanger -o SRR957824_trimmed_R1.fastq -p SRR957824_trimmed_R2.fastq \
-    -s /dev/null -q 25
+```
+module load bioinfo-tools
+module load trimmomatic
+
+trimmomatic PE -phred33 \
+-threads 6 \
+SRR957824_500K_R1.fastq.gz \
+SRR957824_500K_R2.fastq.gz \
+SRR957824_trimmed_R1.fastq \
+SRR957824_trimmed_U1.fastq \
+SRR957824_trimmed_R2.fastq \
+SRR957824_trimmed_U2.fastq \
+ILLUMINACLIP:/sw/apps/bioinfo/trimmomatic/0.36/rackham/adapters/TruSeq3-PE.fa:2:30:10 \
+LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
 ```
 
 which should output something like
 
 ```
-PE forward file: SRR957824_trimmed_R1.fastq
-PE reverse file: SRR957824_trimmed_R2.fastq
-
-Total input FastQ records: 1000000 (500000 pairs)
-
-FastQ paired records kept: 834570 (417285 pairs)
-FastQ single records kept: 13263 (from PE1: 11094, from PE2: 2169)
-FastQ paired records discarded: 138904 (69452 pairs)
-FastQ single records discarded: 13263 (from PE1: 2169, from PE2: 11094)
+TrimmomaticPE: Started with arguments:
+ -phred33 -threads 6 SRR957824_500K_R1.fastq.gz SRR957824_500K_R2.fastq.gz SRR957824_trimmed_R1.fastq SRR957824_trimmed_U1.fastq SRR957824_trimmed_R1.fastq SRR957824_trimmed_U2.fastq ILLUMINACLIP:/sw/apps/bioinfo/trimmomatic/0.36/rackham/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36
+Using PrefixPair: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT' and 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT'
+ILLUMINACLIP: Using 1 prefix pairs, 0 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Input Read Pairs: 500000 Both Surviving: 399848 (79.97%) Forward Only Surviving: 97021 (19.40%) Reverse Only Surviving: 1898 (0.38%) Dropped: 1233 (0.25%)
+TrimmomaticPE: Completed successfully
 ```
+
+Please check on the [Trimmomatic manual](http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf) how each supplied parameters influences the quality filtering step. 
 
 ## FastQC again
 
@@ -223,15 +211,17 @@ and look at the reports
 
 ## MultiQC
 
-[MultiQC](http://multiqc.info) is a tool that aggreagtes results from several popular QC bioinformatics software into one html report.
+[MultiQC](http://multiqc.info) is a tool that aggregates results from several popular QC bioinformatics software into one html report.
 
 Let's run MultiQC in our current directory
 
 ```bash
+module load bioinfo-tools
+
 multiqc .
 ```
 
-You can download the report or view it by clickinh on the link below
+You can download the report or view it by clicking on the link below
 
 - [multiqc_report.html](data/fastqc/multiqc_report.html)
 
