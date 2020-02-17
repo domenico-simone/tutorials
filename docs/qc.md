@@ -217,6 +217,7 @@ Let's run MultiQC in our current directory
 
 ```bash
 module load bioinfo-tools
+module load MultiQC
 
 multiqc .
 ```
