@@ -4,6 +4,8 @@
 
 <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRKVI_pHGubDWeRPaAO7c9g55DzHMO5Lgd7g7AZXvjB77wAAb-wED82lXgV5P7GPF02k-21YMx8ObaX/embed?start=false&loop=false&delayms=3000" frameborder="0" width="480" height="389" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
+To download the slides, click [here](https://docs.google.com/presentation/d/1FzKPw7QSSj-AXtMcq5YhNZHFB37ILd84_ygE0NZg8nQ/export/pptx).
+
 ## Practical
 
 In this practical we will perform the assembly of _M. genitalium_, a bacterium published in 1995 by Fraser et al in Science ([abstract link](https://www.ncbi.nlm.nih.gov/pubmed/7569993)).
