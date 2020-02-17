@@ -4,7 +4,7 @@
 
 <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSEweh7Xei6konNxPVSTQzjfuWt38LHiD5O1K4xv-7P8KbkKmvDP8vjhPO-6JEHFU857-wyiCPYAAmN/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="749" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
-To download the slides, click [here](https://docs.google.com/presentation/d/e/2PACX-1vSEweh7Xei6konNxPVSTQzjfuWt38LHiD5O1K4xv-7P8KbkKmvDP8vjhPO-6JEHFU857-wyiCPYAAmN/export/pptx).
+To download the slides, click [here](https://docs.google.com/presentation/d/1vCPXeY_TEqpXHhxVZXbeb9GODeGNf2VwUhUBVM1aFD0/export/pptx).
 
 In this tutorial we will learn how to determine a pan-genome from a collection of isolate genomes.
 
