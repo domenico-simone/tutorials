@@ -21,6 +21,7 @@ Feel free to follow them online, or to use and modify them for your own teaching
 * [Metagenome assembly](meta_assembly.md)
 * [RNA-Seq](rna.md)
 * [Introduction to Nanopore Sequencing](nanopore.md)
+* [Mitochondrial genomics](mitochondrial_genomics.md)
 
 ## Contributing
 
