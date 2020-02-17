@@ -6,6 +6,8 @@
 
 <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vR7ZN5Gc-3q5DR8CWQgyHhjUIc-6uKJnB48lDVMB7tWrt4gpZFipbJRVWfaqdxSw9n_WnMfXoFMZXds/embed?start=false&loop=false&delayms=3000" frameborder="0" width="480" height="389" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 
+To download the slides, click [here](https://docs.google.com/presentation/d/1oJVx28XDmpl6yd8BEwX2SPIDwzatd6dNwaRAq-tASwQ/export/pptx).
+
 ## Practical
 
 In this practical you will learn to import, view and check the quality of raw high thoughput sequencing sequencing data.
