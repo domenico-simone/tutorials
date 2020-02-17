@@ -30,6 +30,9 @@ In contrast to the strain we are working on, this strain is available as a finis
 Before aligning the reads against a reference, it is necessary to build an index of that reference
 
 ```bash
+module load bioinfo-tools
+module load bowtie2
+
 bowtie2-build pO157_Sakai.fasta.gz pO157_Sakai
 ```
 
@@ -41,8 +44,8 @@ bowtie2-build pO157_Sakai.fasta.gz pO157_Sakai
 Now we are ready to map our reads
 
 ```bash
-bowtie2 -x pO157_Sakai -1 SRR957824_trimmed_R1.fastq.gz \
-    -2 SRR957824_trimmed_R2.fastq.gz -S SRR957824.sam
+bowtie2 -x pO157_Sakai -1 SRR957824_trimmed_R1.fastq \
+    -2 SRR957824_trimmed_R2.fastq -S SRR957824.sam
 ```
 
 The output of the mapping will be in the SAM format.
@@ -63,20 +66,22 @@ We'll use samtools to visualise our data
 Before downloading the data in tablet, we have to convert our SAM file into BAM, a compressed version of SAM that can be indexed.
 
 ```bash
+module load samtools
+
 samtools view -hSbo SRR957824.bam SRR957824.sam
 ```
 
 Sort the bam file per position in the genome and index it
 
 ```bash
-samtools sort SRR957824.bam SRR2584857.sorted.bam
-samtools index SRR2584857.sorted.bam
+samtools sort -o SRR957824.sorted.bam SRR957824.bam
+samtools index SRR957824.sorted.bam
 ```
 
 Finally we can visualise with `samtools tview`
 
 ```bash
-samtools tview SRR2584857.sorted.bam pO157_Sakai.fasta.gz
+samtools tview SRR957824.sorted.bam pO157_Sakai.fasta.gz
 ```
 
 !!! tip
@@ -95,7 +100,9 @@ For an EHEC O157 outbreak you could use it to identify the source, for instance.
 We can call the variants using `samtools mpileup`
 
 ```bash
-samtools mpileup -uD -f pO157_Sakai.fasta.gz SRR2584857.sorted.bam | \
+module load bcftools
+
+samtools mpileup -uD -f pO157_Sakai.fasta.gz SRR957824.sorted.bam | \
     bcftools view - > variants.vcf
 ```
 
@@ -105,14 +112,14 @@ The documentation is quite painful to read and take a look at the file
 Look at the non-commented lines
 
 ```bash
-grep -v ^## variants.vcf
+grep -v "^##" variants.vcf
 ```
 The first five columns are *CHROM POS ID REF ALT*.
 
 Use
 
 ```bash
-grep -v ^## variants.vcf | less -S
+grep -v "^##" variants.vcf | less -S
 ```
 
 for a better view.
