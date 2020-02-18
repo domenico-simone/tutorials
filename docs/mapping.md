@@ -1,5 +1,7 @@
 # Mapping and Variant Calling
 
+Please find an intro to mapping (and NGS) [here](docs/NGS.ppt2.pdf).  
+
 In this practical you will learn to map NGS reads to a reference sequence, check the output using a viewer software and investigate some aspects of the results.
 You will be using the read data from the [Quality Control](qc.md) practical.
 
