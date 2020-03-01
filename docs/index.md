@@ -34,6 +34,7 @@ In no particular order, the following people have contributed to these tutorials
 * [Oskar Karlsson-Lindsjö](https://github.com/Ackia)
 * [Juliette Hayer](https://github.com/jhayer)
 * [Domenico Simone](https://github.com/domenico-simone)
+* [Moritz Buck](https://github.com/moritzbuck)
 
 ## License
 
