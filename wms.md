@@ -130,7 +130,7 @@ Install and run Pavian from R:
 ```R
 options(repos = c(CRAN = "http://cran.rstudio.com"))
 options(browser="google-chrome")
-Sys.setenv(TAR = "/bin/tar")
+Sys.setenv(TAR = "/usr/bin/tar")
 install.packages("remotes")
 remotes::install_github("fbreitwieser/pavian")
 pavian::runApp(port=5000)
