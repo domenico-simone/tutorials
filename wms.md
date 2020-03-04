@@ -144,13 +144,13 @@ We will use the humann2 pipeline for functional classificaltion
 
 ```bash
 cd wms/data/sub_100000
-HUMANN_DB=/proj/g2019027/2019_MG_course/dbs/humann/chocophlan/
+HUMANN_DB=/proj/g2019027/2019_MG_course/dbs/humann/
 for i in *_1.fastq
 do
     prefix=$(basename $i _1.fastq)
     # print which sample is being processed
     echo $prefix
-    humann2 --input ${prefix}_1.fastq --output ../../results/{prefix}_humann --threads 20 --nucleotide-database $HUMANN_DB
+    humann2 --input ${prefix}_1.fastq --output ../../results/${prefix}_humann --threads 20 --nucleotide-database $HUMANN_DB/chocophlan/ --protein-database $HUMANN_DB/uniref/ --metaphlan $HUMANN_DB/utility_mapping/
 done
 ```
 
