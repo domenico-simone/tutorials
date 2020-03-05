@@ -118,3 +118,18 @@ plot_bar(physeq_top20, x='day', fill='Family') +
 bacteroidetes <- subset_taxa(physeq, Phylum %in% c('Bacteroidetes'))
 plot_tree(bacteroidetes, ladderize='left', size='abundance',
           color='when', label.tips='Family')
+
+
+
+ord <- ordinate(physeq, 'MDS', 'euclidean')
+plot_ordination(physeq, ord, type='samples', color='when',
+                title='PCA of the samples from the MiSeq SOP') +
+    theme_minimal()+
+
+
+top20 <- names(sort(taxa_sums(physeq), decreasing=TRUE))[1:20]
+physeq_top20 <- transform_sample_counts(physeq, function(OTU) OTU/sum(OTU))
+physeq_top20 <- prune_taxa(top20, physeq_top20)
+plot_bar(physeq_top20, x='day', fill='Phylum') +
+    facet_wrap(~when, scales='free_x') +
+    theme_minimal()

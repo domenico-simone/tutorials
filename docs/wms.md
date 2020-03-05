@@ -33,21 +33,21 @@ The choice of shotgun or 16S approaches is usually dictated by the nature of the
 ### Softwares Required for this Tutorial
 
 * [FastQC](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
-* [Kraken](https://ccb.jhu.edu/software/kraken/)
+* [Kraken](https://ccb.jhu.edu/software/kraken2/)
 * [R](https://www.r-project.org/)
 * [Pavian](https://github.com/fbreitwieser/pavian)
 
 ### Prepare and organise your working directory
 
-You will first login to your virtual machine using the IP provided by the teachers.
+You will first login UPPMAX and to the computers provided by the teachers.
 All the exercise will be performed on your VM in the cloud.
 
 !!! note
     When you login with the ssh command, please add the option -X at the end of it to be able to use graphical interface
 
 ```bash
-mkdir ~/wms
-cd ~/wms
+mkdir wms
+cd wms
 mkdir data
 mkdir results
 mkdir scripts
@@ -59,7 +59,7 @@ As the data were very big, we have prepared performed a downsampling on all 6 da
 We will first download and unpack the data.
 
 ```bash
-cd ~/wms/data
+cd data
 curl -O -J -L https://osf.io/h9x6e/download
 tar xvf subset_wms.tar.gz
 cd sub_100000
@@ -87,31 +87,31 @@ By default, the authors of kraken built their database based on RefSeq Bacteria,
 We will download a shrunk database (minikraken) provided by Kraken developers that is only 4GB.
 
 ```bash
-# First we create a databases directory in our home
-cd /mnt
-sudo mkdir databases
+# First we create a databases directory in UPPMAX's temp folder
+mkdir -p $SNIC_TMP/$USER
+cd $SNIC_TMP/$USER
+mkdir databases
 cd databases
 # Then we download the minikraken database
-sudo wget https://ccb.jhu.edu/software/kraken/dl/minikraken_20171019_4GB.tgz
-sudo tar xzf minikraken_20171019_4GB.tgz
-KRAKEN_DB=/mnt/databases/minikraken_20171013_4GB
+wget ftp://ftp.ccb.jhu.edu/pub/data/kraken2_dbs/minikraken2_v2_8GB_201904_UPDATE.tgz
+unpigz minikraken2_v2_8GB_201904_UPDATE.tgz
+tar xvf minikraken2_v2_8GB_201904_UPDATE.tar
+KRAKEN_DB=/$SNIC_TMP/$USER/databases/minikraken2_v2_8GB_201904_UPDATE
+
 cd
 ```
 
-Now run kraken on the reads
+Now run kraken2 on the reads
 
 ```bash
 # In the data/ directory
-cd ~/wms/data/sub_100000
+cd wms/data/sub_100000
 for i in *_1.fastq
 do
     prefix=$(basename $i _1.fastq)
     # print which sample is being processed
     echo $prefix
-    kraken --db $KRAKEN_DB --threads 2 --fastq-input \
-        ${prefix}_1.fastq ${prefix}_2.fastq > /home/student/wms/results/${prefix}.tab
-    kraken-report --db $KRAKEN_DB \
-        /home/student/wms/results/${prefix}.tab > /home/student/wms/results/${prefix}_tax.txt
+    kraken2 --db $KRAKEN_DB --threads 20 --use-names --paired         ${prefix}_1.fastq ${prefix}_2.fastq --output ../../results/${prefix}.tab  --report  ../../results/${prefix}_tax.txt
 done
 ```
 
@@ -129,9 +129,29 @@ Install and run Pavian from R:
 
 ```R
 options(repos = c(CRAN = "http://cran.rstudio.com"))
-if (!require(remotes)) { install.packages("remotes") }
+options(browser="google-chrome")
+Sys.setenv(TAR = "/usr/bin/tar")
+install.packages("remotes")
 remotes::install_github("fbreitwieser/pavian")
 pavian::runApp(port=5000)
 ```
 
 Then you will explore and compare the results produced by Kraken.
+
+### Functional Classification
+
+We will use the humann2 pipeline for functional classificaltion
+
+```bash
+cd wms/data/sub_100000
+HUMANN_DB=/proj/g2019027/2019_MG_course/dbs/humann/
+for i in *_1.fastq
+do
+    prefix=$(basename $i _1.fastq)
+    # print which sample is being processed
+    echo $prefix
+    humann2 --input ${prefix}_1.fastq --output ../../results/${prefix}_humann --threads 20 --nucleotide-database $HUMANN_DB/chocophlan/ --protein-database $HUMANN_DB/uniref/ --metaphlan $HUMANN_DB/utility_mapping/
+done
+```
+
+Try to use Pavian to look at this data a bit!!
