@@ -22,6 +22,7 @@ Feel free to follow them online, or to use and modify them for your own teaching
 * [RNA-Seq](rna.md)
 * [Introduction to Nanopore Sequencing](nanopore.md)
 * [Mitochondrial genomics](mitochondrial_genomics.md)
+* [Research reproducibility](research_reproducibility.md)
 
 ## Contributing
 
